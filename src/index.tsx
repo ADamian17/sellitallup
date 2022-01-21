@@ -4,9 +4,13 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+import ApolloProviderWrapper from './Apollo';
+
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ApolloProviderWrapper>
+      <App />
+    </ApolloProviderWrapper>
   </React.StrictMode>,
   document.getElementById('root')
 );
