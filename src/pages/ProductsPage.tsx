@@ -1,19 +1,8 @@
 import { useQuery, gql } from '@apollo/client';
+import { ProductDataInterface } from '../AppTypes';
 
 /* internal components */
 import ProductsList from '../components/ProductsList';
-
-interface ProductInterface {
-  id: number,
-  name: string,
-  image: string
-  price: number
-  creactedAt: string 
-}
-
-interface ProductDataInterface {
-  products: ProductInterface[]
-}
 
 const PRODUCT_QUERY = gql`
   {
