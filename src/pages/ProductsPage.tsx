@@ -18,7 +18,8 @@ const PRODUCT_QUERY = gql`
 
 const ProductsPage = () => {
   const { loading, data } = useQuery<ProductDataInterface>(PRODUCT_QUERY);
-
+  console.log({data});
+  
   return (
     <>
       {
