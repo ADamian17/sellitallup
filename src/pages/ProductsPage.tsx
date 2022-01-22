@@ -2,6 +2,7 @@ import { useQuery, gql } from '@apollo/client';
 import { ProductDataInterface } from '../AppTypes';
 
 /* internal components */
+import NewProduct from '../components/NewProduct';
 import ProductsList from '../components/ProductsList';
 
 const PRODUCT_QUERY = gql`
@@ -22,6 +23,7 @@ const ProductsPage = () => {
   
   return (
     <>
+      <NewProduct />
       {
         loading ?  
         <div>loading...</div> : 
