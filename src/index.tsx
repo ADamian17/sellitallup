@@ -5,11 +5,15 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 import ApolloProviderWrapper from './Apollo';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProviderWrapper>
-      <App />
+      <Router>
+        <App />
+      </Router>
     </ApolloProviderWrapper>
   </React.StrictMode>,
   document.getElementById('root')

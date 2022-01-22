@@ -1,5 +1,9 @@
 import { useState, FormEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {useMutation, gql} from "@apollo/client";
+
+import { PRODUCT_QUERY } from '../../pages/ProductsPage';
+import { ProductInterface, ProductDataInterface } from '../../AppTypes';
 
 const PRODUCT_MUTATION = gql`
   mutation(
@@ -9,6 +13,10 @@ const PRODUCT_MUTATION = gql`
     ) {
     createProduct(name: $name, image: $image, price: $price) {
       id
+      name
+      image
+      price
+      createdAt
     }
   }
 `;
@@ -19,12 +27,18 @@ interface NewProductInterface {
   price: number;
 }
 
+interface QueryProductsRes {
+  products: ProductInterface[]
+}
+
 const NewProduct = () => {
+  const navigate = useNavigate();
+  const [createProduct, {error}] = useMutation(PRODUCT_MUTATION);
+
   const [name, setName] = useState('')
   const [image, setImage] = useState('')
   const [price, setPrice] = useState(0)
 
-  const [createProduct, {error}] = useMutation(PRODUCT_MUTATION);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -35,7 +49,27 @@ const NewProduct = () => {
       price
     }
 
-    return await createProduct({ variables });    
+    await createProduct(
+      { 
+        variables,
+        update(cache, { data: { createProduct } }) {
+
+          const {products}: QueryProductsRes = cache.readQuery({
+            query: PRODUCT_QUERY
+          }) ?? {
+            products: []
+          };
+    
+          cache.writeQuery({
+            query: PRODUCT_QUERY,
+            data: {
+              products: [...products, createProduct]
+            }
+          });
+        },
+        onCompleted: () => navigate('/')
+      }
+    );
   }
 
   return (

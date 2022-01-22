@@ -1,4 +1,4 @@
-// import { formatCurrency } from "../../utils"
+import { formatCurrency } from "../../utils"
 import { ProductInterface } from "../../AppTypes"
 
 interface ProductProps {
@@ -15,7 +15,7 @@ export default function Product({ product }: ProductProps) {
         <img src={product.image} alt="" />
       </figure>
 
-      {/* <p>{formatCurrency(product.price)}</p> */}
+      <p>{formatCurrency(product.price)}</p>
       <small>{product.createdAt}</small>
     </article>
   )

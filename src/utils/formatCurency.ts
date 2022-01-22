@@ -1,4 +1,4 @@
-export const formatCurrency = (price) => {
+export function formatCurrency (num: number): string {
   const parsedNum = new Intl.NumberFormat(
     'en-US',
     {
@@ -8,5 +8,5 @@ export const formatCurrency = (price) => {
     }
   )
 
-  return parsedNum.format(price);
+  return parsedNum.format(num);
 }
